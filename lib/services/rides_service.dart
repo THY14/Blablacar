@@ -29,6 +29,8 @@ class RidesService {
   //
   static List<Ride> filterBy({Location? departure, int? seatRequested, required int seatsRequested}) {
     List<Ride> result = List.from(availableRides);
-    
+    if(departure !=null){
+      return result _filterByDeparture();
+    }
   }
 }
