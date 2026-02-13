@@ -5,7 +5,7 @@ import '../../../../model/ride_pref/ride_pref.dart';
 import '../../location_picker/location_picker_screen.dart';
 import 'ride_pref_filed.dart';
 import '../../../theme/theme.dart';
-import '../../../../utils/date_time_util.dart';
+import '../../../../utils/date_time_util.dart'; 
 
 class RidePrefForm extends StatefulWidget {
   final RidePref? initRidePref;
@@ -22,24 +22,14 @@ class _RidePrefFormState extends State<RidePrefForm> {
   late DateTime departureDate;
   late int requestedSeats;
 
-  // ----------------------------------
-  // Initialize the Form attributes
-  // ----------------------------------
   @override
   void initState() {
     super.initState();
-
     departure = widget.initRidePref?.departure;
     arrival = widget.initRidePref?.arrival;
-    departureDate =
-        widget.initRidePref?.departureDate ?? DateTime.now();
-    requestedSeats =
-        widget.initRidePref?.requestedSeats ?? 1;
+    departureDate = widget.initRidePref?.departureDate ?? DateTime.now();
+    requestedSeats = 1; 
   }
-
-  // ----------------------------------
-  // Handle events
-  // ----------------------------------
 
   Future<void> _pickLocation({
     required Location initialLocation,
@@ -70,73 +60,42 @@ class _RidePrefFormState extends State<RidePrefForm> {
       setState(() => departureDate = pickedDate);
     }
   }
-
-  void _changeSeats(int delta) {
-    setState(() {
-      requestedSeats = (requestedSeats + delta).clamp(1, 8);
-    });
-  }
-
-  // ----------------------------------
-  // Build the widgets
-  // ----------------------------------
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        // Departure 
         RidePrefField(
           icon: Icons.trip_origin,
-          text: departure?.name.isNotEmpty == true
-              ? departure!.name
-              : 'From',
+          text: departure?.name.isNotEmpty == true ? departure!.name : 'From',
           onPressed: () => _pickLocation(
-            initialLocation: departure ??
-                Location(name: '', country: Country.none),
+            initialLocation: departure ?? Location(name: '', country: Country.none),
             onSelected: (loc) => departure = loc,
           ),
-        ),
-
+        ),  
         const Divider(height: 1),
-
+        // Arrival 
         RidePrefField(
           icon: Icons.location_on,
-          text: arrival?.name.isNotEmpty == true
-              ? arrival!.name
-              : 'To',
+          text: arrival?.name.isNotEmpty == true ? arrival!.name : 'To',
           onPressed: () => _pickLocation(
-            initialLocation: arrival ??
-                Location(name: '', country: Country.none),
+            initialLocation: arrival ?? Location(name: '', country: Country.none),
             onSelected: (loc) => arrival = loc,
           ),
         ),
-
         const Divider(height: 1),
-
         RidePrefField(
           icon: Icons.calendar_today,
-          text: formatDate(departureDate),
+          text: DateTimeUtils.formatDateTime(departureDate), 
           onPressed: _pickDate,
-        ),
-
+        ), 
         const Divider(height: 1),
-
         RidePrefField(
           icon: Icons.person,
-          text: '$requestedSeats seat(s)',
-          onPressed: () {},
-          endWidget: Row(
-            children: [
-              IconButton(
-                icon: const Icon(Icons.remove),
-                onPressed: () => _changeSeats(-1),
-              ),
-              IconButton(
-                icon: const Icon(Icons.add),
-                onPressed: () => _changeSeats(1),
-              ),
-            ],
-          ),
+          text: '1 seat', 
+          onPressed: () {
+                    },
         ),
       ],
     );
