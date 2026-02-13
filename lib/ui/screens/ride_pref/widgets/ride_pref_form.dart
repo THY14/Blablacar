@@ -60,6 +60,13 @@ class _RidePrefFormState extends State<RidePrefForm> {
       setState(() => departureDate = pickedDate);
     }
   }
+  void _switchLocation() {
+  setState(() {
+    final temp = departure;
+    departure = arrival;
+    arrival = temp;
+  });
+}
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -73,6 +80,10 @@ class _RidePrefFormState extends State<RidePrefForm> {
             initialLocation: departure ?? Location(name: '', country: Country.none),
             onSelected: (loc) => departure = loc,
           ),
+          endWidget: IconButton(
+          icon: Icon(Icons.swap_vert, color: BlaColors.primary),
+          onPressed: _switchLocation, )
+          
         ),  
         const Divider(height: 1),
         // Arrival 

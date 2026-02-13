@@ -14,6 +14,7 @@ class RidePrefField extends StatelessWidget {
     required this.onPressed,
     this.endWidget,
   });
+  
 
   @override
   Widget build(BuildContext context) {
@@ -22,26 +23,14 @@ class RidePrefField extends StatelessWidget {
       child: InkWell(
         onTap: onPressed,
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 18,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
           child: Row(
             children: [
-              Icon(
-                icon,
-                color: BlaColors.greyLight,
-                size: 22,
-              ),
+              Icon(icon, color: BlaColors.greyLight, size: 22),
 
               const SizedBox(width: 14),
 
-              Expanded(
-                child: Text(
-                  text,
-                  style: BlaTextStyles.body,
-                ),
-              ),
+              Expanded(child: Text(text, style: BlaTextStyles.body)),
 
               if (endWidget != null) endWidget!,
             ],
