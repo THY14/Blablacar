@@ -28,9 +28,18 @@ class _RidePrefScreenState extends State<RidePrefScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Stack(children: [_buildBackground(), _buildForeground()]);
-  }
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: Stack(
+      children: [
+        _buildBackground(),
+        _buildForeground(),
+      ],
+    ),
+  );
+}
+
 
   Widget _buildBackground() {
     return SizedBox(
@@ -72,8 +81,10 @@ class _RidePrefScreenState extends State<RidePrefScreen> {
               departureDate: DateTime.now(),
               requestedSeats: 1,
             ),
-            ),
+),
+
               SizedBox(height: BlaSpacings.m),
+
               // 2.2 Optionally display the history of past preferences
               SizedBox(
                 height: 200, // Set a fixed height
