@@ -1,3 +1,4 @@
+import 'package:blabla/model/ride/locations.dart';
 import 'package:flutter/material.dart';
 
 import '../../../model/ride_pref/ride_pref.dart';
@@ -62,9 +63,17 @@ class _RidePrefScreenState extends State<RidePrefScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // 2.1 Display the Form to input the ride preferences
-              RidePrefForm(initRidePref: RidePrefService.currentRidePref),
+              RidePrefForm(
+             initRidePref: RidePrefService.currentRidePref != null
+             ? RidePrefService.currentRidePref!
+            : RidePref(
+              departure: Location(name: '', country: Country.none),
+              arrival: Location(name: '', country: Country.none),
+              departureDate: DateTime.now(),
+              requestedSeats: 1,
+            ),
+            ),
               SizedBox(height: BlaSpacings.m),
-
               // 2.2 Optionally display the history of past preferences
               SizedBox(
                 height: 200, // Set a fixed height
