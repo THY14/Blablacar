@@ -1,4 +1,4 @@
-import 'package:blabla/services/location_service.dart';
+import '../../../main_common.dart';
 import 'package:blabla/ui/widgets/display/bla_divider.dart';
 import 'package:flutter/material.dart';
 
@@ -46,11 +46,11 @@ class _BlaLocationPickerState extends State<BlaLocationPicker> {
     });
   }
 
-  List<Location> get filteredLocation {
+  List<Location> get filteredLocations {
     if (currentSearchText.length < 2) {
       return [];
     }
-    return LocationsService.availableLocations
+    return context.locationRepository.getAvailableLocations()
         .where(
           (location) => location.name.toUpperCase().contains(
             currentSearchText.toUpperCase(),
@@ -80,9 +80,9 @@ class _BlaLocationPickerState extends State<BlaLocationPicker> {
 
             Expanded(
               child: ListView.builder(
-                itemCount: filteredLocation.length,
+                itemCount: filteredLocations.length,
                 itemBuilder: (context, index) => LocationTile(
-                  location: filteredLocation[index],
+                  location: filteredLocations[index],
                   onTap: onTap,
                 ),
               ),
