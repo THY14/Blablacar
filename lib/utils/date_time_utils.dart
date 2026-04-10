@@ -1,14 +1,15 @@
-
 import 'package:intl/intl.dart';
 
 ////
 //// Utility class for formatting DateTime objects into human-readable strings.
 ////
 class DateTimeUtils {
+  
   static String formatDateTime(DateTime dateTime) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final targetDate = DateTime(dateTime.year, dateTime.month, dateTime.day);
+
     if (targetDate == today) {
       return 'Today';
     } else if (targetDate == today.subtract(Duration(days: 1))) {

@@ -4,8 +4,7 @@
 enum Country {
   france('France'),
   uk('United Kingdom'),
-  spain('Spain'),
-  none('None');
+  spain('Spain');
 
   final String name;
 
@@ -20,6 +19,8 @@ class Location {
   final Country country;
 
   const Location({required this.name, required this.country});
+
+  Location.copy(Location source) : name = source.name, country = source.country;
 
   @override
   bool operator ==(Object other) {
