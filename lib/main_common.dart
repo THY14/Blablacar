@@ -14,11 +14,14 @@ void runBlaApp({
   final ridePreferenceState = RidePreferenceState(
     ridePreferenceRepository: ridePreferenceRepository,
   );
-  runApp(BlaBlaApp(
-    locationRepository: locationRepository,
-    rideRepository: rideRepository,
-    ridePreferenceState: ridePreferenceState,
-  ));
+
+  runApp(
+    BlaBlaApp(
+      locationRepository: locationRepository,
+      rideRepository: rideRepository,
+      ridePreferenceState: ridePreferenceState,
+    ),
+  );
 }
 
 class BlaBlaApp extends StatelessWidget {
@@ -61,18 +64,23 @@ class _RepositoryProvider extends InheritedWidget {
   });
 
   static _RepositoryProvider of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<_RepositoryProvider>()!;
+    final provider =
+        context.dependOnInheritedWidgetOfExactType<_RepositoryProvider>();
+    assert(provider != null, 'No _RepositoryProvider found in context');
+    return provider!;
   }
 
   @override
-  bool updateShouldNotify(_RepositoryProvider old) => false;
+  bool updateShouldNotify(_RepositoryProvider oldWidget) => false;
 }
 
 extension RepositoryProviderExtension on BuildContext {
   LocationRepository get locationRepository =>
       _RepositoryProvider.of(this).locationRepository;
+
   RideRepository get rideRepository =>
       _RepositoryProvider.of(this).rideRepository;
+
   RidePreferenceState get ridePreferenceState =>
       _RepositoryProvider.of(this).ridePreferenceState;
 }
